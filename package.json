@@ -1,6 +1,6 @@
 {
   "name": "@dreitagebart/unik",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "unik react component library",
   "main": "dist/index.js",
   "module": "./dist/index.esm.js",
