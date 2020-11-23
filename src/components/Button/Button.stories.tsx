@@ -2,6 +2,7 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Button, ButtonProps } from './Button'
 import { Unik } from '../Unik'
+import { Icon } from '../Icon'
 
 export default {
   title: 'Components/Button',
@@ -24,4 +25,10 @@ export const Primary = Template.bind({})
 Primary.args = {
   children: 'Who is your god now?',
   primary: true
+}
+
+export const Secondary = Template.bind({})
+Secondary.args = {
+  children: 'Who is your god now?',
+  icon: <Icon name="donate-blood"></Icon>
 }

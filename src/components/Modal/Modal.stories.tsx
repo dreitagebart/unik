@@ -32,7 +32,6 @@ const Template: Story<ModalProps> = (args) => {
 
 export const Primary = Template.bind({})
 Primary.args = {
-  title: <h3>Hello World Modal</h3>,
   closeOnBackdrop: true,
   children: (
     <div>

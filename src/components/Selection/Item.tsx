@@ -1,63 +1,38 @@
-import React, { useContext } from 'react'
-import styled, { css } from 'styled-components'
-import {
-  renderBorder,
-  renderShadow,
-  renderBackground,
-  renderMargin,
-  renderPadding,
-  renderRadius
-} from '../../utils'
+import React, { PropsWithChildren, useContext } from 'react'
+
+import { Icon } from '../Icon'
 import { Context } from './Context'
+import { _Item } from './Styled'
 
-export interface ItemProps {
+export interface ItemProps<SelectionItem> {
   active: boolean
-  itemKey: string
+  item: SelectionItem
 }
 
-interface _CheckedProps {
-  checked: boolean
-}
-
-const _Item = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  cursor: pointer;
-
-  ${({ theme }) => {
-    return css`
-      ${renderBorder(theme.selection.item.border)}
-      ${renderShadow(theme.selection.item.shadow)}
-      ${renderBackground(theme.selection.item.background)}
-      ${renderMargin(theme.selection.item.margin)}
-      ${renderPadding(theme.selection.item.padding)}
-      ${renderRadius(theme.selection.item.radius)}
-    `
-  }}
-`
-
-const _Checked = styled.div<_CheckedProps>`
-  display: ${({ checked }) => (checked ? 'block' : 'none')};
-`
-
-export const Item: React.FC<ItemProps> = ({ children, itemKey }) => {
+export const Item = <SelectionItem,>({
+  children,
+  item
+}: PropsWithChildren<ItemProps<SelectionItem>>) => {
   let checked = false
-  const { setSelected, selected, onSelect, multi, hideSelected } = useContext(
-    Context
-  )
+  const {
+    select,
+    setSelected,
+    selected,
+    onSelect,
+    keyProp,
+    multi,
+    hideSelected
+  } = useContext(Context)
 
   const handleClick = () => {
-    onSelect(itemKey)
+    onSelect(item)
 
-    if (!multi) return setSelected([itemKey])
+    if (!multi) return setSelected([(item as any)[keyProp]])
 
-    const index = selected.findIndex((s) => s === itemKey)
+    const index = selected.findIndex((s) => s === (item as any)[keyProp])
 
     if (index < 0) {
-      setSelected([itemKey, ...selected])
+      setSelected([(item as any)[keyProp], ...selected])
     } else {
       let sel = [...selected]
       sel.splice(index, 1)
@@ -66,13 +41,18 @@ export const Item: React.FC<ItemProps> = ({ children, itemKey }) => {
   }
 
   if (!hideSelected) {
-    checked = selected.findIndex((s) => s === itemKey) >= 0
+    checked = selected.findIndex((s) => s === (item as any)[keyProp]) >= 0
   }
 
   return (
     <_Item onClick={handleClick}>
       <div>{children}</div>
-      <_Checked checked={checked}>X</_Checked>
+      {select && (
+        <Icon
+          style={{ display: checked ? 'block' : 'none' }}
+          name="check"
+        ></Icon>
+      )}
     </_Item>
   )
 }

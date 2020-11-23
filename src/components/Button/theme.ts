@@ -1,3 +1,4 @@
+import { FlattenSimpleInterpolation } from 'styled-components'
 import {
   ColorProp,
   BackgroundProp,
@@ -17,6 +18,7 @@ export interface ButtonStyle {
   padding: PaddingProp
   shadow: ShadowProp
   radius: RadiusProp
+  css?: FlattenSimpleInterpolation
 }
 
 interface HoverButton extends ButtonStyle {

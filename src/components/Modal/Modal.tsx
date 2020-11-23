@@ -1,121 +1,52 @@
-import React, { useEffect, Fragment, useRef } from 'react'
-import styled, { css } from 'styled-components'
+import React, { useEffect, useRef } from 'react'
 
-import {
-  renderWidth,
-  renderBorder,
-  renderBackground,
-  renderMargin,
-  renderRadius,
-  renderShadow,
-  renderPadding,
-  renderColor,
-  renderTransition
-} from '../../utils'
-import { Icon } from '../Icon'
-import { WidthProp } from '../../types'
+import { HeightProp, WidthProp } from '../../types'
 import { useOnClickOutside } from '../../hooks'
+import {
+  _Backdrop,
+  _Modal,
+  _Close,
+  _Content,
+  _Actions,
+  _Dialog,
+  _Wrapper
+} from './Styled'
+import { Portal } from '../Portal'
+import { Title, TitleProps } from './Title'
+import { Content, ContentProps } from './Content'
+import { Actions, ActionsProps } from './Actions'
+import { Provider } from './Context'
+
+interface SubComponents {
+  Title: React.FC<TitleProps>
+  Content: React.FC<ContentProps>
+  Actions: React.FC<ActionsProps>
+}
 
 export interface ModalProps {
+  plain?: boolean
+  withoutClose?: boolean
+  closeIcon?: React.ReactNode
   closeOnBackdrop?: boolean
-  title?: string | React.ReactNode
   width?: WidthProp
+  height?: HeightProp
   onClose?: () => void
   onOpen?: () => void
   open: boolean
   children: any
 }
 
-interface _BackdropProps {
-  visible: boolean
-}
-
-interface _ModalProps {
-  visible: boolean
-  width: WidthProp
-}
-
-const _Backdrop = styled.div<_BackdropProps>`
-  ${({ theme }) =>
-    css`
-      ${renderTransition(theme.modal.backdrop.transition)}
-      ${renderBackground(theme.modal.backdrop.background)}
-    `}
-
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-
-  ${({ visible }) =>
-    visible
-      ? css`
-          opacity: 1;
-          visibility: visible;
-        `
-      : css`
-          opacity: 0;
-          visibility: hidden;
-        `}
-`
-
-const _Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-`
-
-const _Title = styled.div``
-
-const _Content = styled.div``
-
-const _Close = styled.div`
-  cursor: pointer;
-`
-
-const _Modal = styled.div<_ModalProps>`
-  z-index: 20;
-  ${({ theme }) => renderTransition(theme.modal.modal.transition)}
-  ${({ width }) => renderWidth(width)}
-
-  ${({ theme }) => css`
-    ${renderBorder(theme.modal.modal.border)}
-    ${renderBackground(theme.modal.modal.background)}
-    ${renderMargin(theme.modal.modal.margin)}
-    ${renderPadding(theme.modal.modal.padding)}
-    ${renderColor(theme.modal.modal.color)}
-    ${renderRadius(theme.modal.modal.radius)}
-    ${renderShadow(theme.modal.modal.shadow)}  
-  `}
-
-  ${({ visible }) =>
-    visible
-      ? css`
-          opacity: 1;
-          visibility: visible;
-        `
-      : css`
-          opacity: 0;
-          visibility: hidden;
-        `}
-`
-
-export const Modal: React.FC<ModalProps> = ({
+export const Modal: React.FC<ModalProps> & SubComponents = ({
+  closeIcon,
+  plain = false,
+  withoutClose = false,
   children,
-  title,
   open,
   onOpen,
   onClose,
   closeOnBackdrop = false,
-  width = '60%'
+  width = '40%',
+  height = 'auto'
 }) => {
   const modalRef = useRef<HTMLDivElement>(null)
 
@@ -132,20 +63,26 @@ export const Modal: React.FC<ModalProps> = ({
   )
 
   return (
-    <_Backdrop visible={open}>
-      <_Modal ref={modalRef} visible={open} width={width}>
-        <_Header>
-          <_Title>{title}</_Title>
-          <_Close
-            onClick={() => {
-              if (onClose) onClose()
-            }}
+    <Portal>
+      <Provider value={{ closeIcon, withoutClose, onClose }}>
+        <_Backdrop visible={open}>
+          <_Modal
+            plain={plain}
+            ref={modalRef}
+            visible={open}
+            width={width}
+            height={height}
           >
-            <Icon name="x" size={48}></Icon>
-          </_Close>
-        </_Header>
-        <_Content>{children}</_Content>
-      </_Modal>
-    </_Backdrop>
+            <_Dialog>
+              <_Wrapper>{children}</_Wrapper>
+            </_Dialog>
+          </_Modal>
+        </_Backdrop>
+      </Provider>
+    </Portal>
   )
 }
+
+Modal.Title = Title
+Modal.Content = Content
+Modal.Actions = Actions

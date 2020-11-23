@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components'
+import { css, DefaultTheme } from 'styled-components'
 
 export const themeDefault: DefaultTheme = {
   base: {
@@ -30,6 +30,10 @@ export const themeDefault: DefaultTheme = {
     medium: 768,
     large: 1012,
     extraLarge: 1280
+  },
+  divider: {
+    color: undefined,
+    background: undefined
   },
   checkbox: {
     transition: 'all 0.3s ease-in',
@@ -88,6 +92,26 @@ export const themeDefault: DefaultTheme = {
       shadow: 'focus'
     }
   },
+  textarea: {
+    transition: {
+      duration: 0.3,
+      function: 'ease-in',
+      property: 'all'
+    },
+    color: '#000',
+    margin: 0,
+    padding: { horizontal: 8, vertical: 4 },
+    shadow: 'xs',
+    border: { size: 1, style: 'solid', color: '#cfcfcf' },
+    background: '#fff',
+    radius: 4,
+    hover: {
+      shadow: 'hover'
+    },
+    focus: {
+      shadow: 'focus'
+    }
+  },
   drawer: {
     drawer: {
       transition: 'all 0.5s ease-in-out',
@@ -101,6 +125,29 @@ export const themeDefault: DefaultTheme = {
     backdrop: {
       transition: 'all 0.3s ease-in',
       background: 'rgba(0, 0, 0, 0.2)'
+    }
+  },
+  tree: {
+    tree: {
+      background: undefined,
+      margin: undefined,
+      padding: undefined,
+      shadow: undefined,
+      border: undefined
+    },
+    item: {
+      hover: {
+        shadow: undefined,
+        border: undefined,
+        background: '#cfcfcf'
+      },
+      radius: 4,
+      transition: 'all 300ms ease-in-out',
+      background: undefined,
+      margin: undefined,
+      padding: 4,
+      border: undefined,
+      shadow: undefined
     }
   },
   table: {
@@ -135,7 +182,7 @@ export const themeDefault: DefaultTheme = {
     modal: {
       color: '#000000',
       background: '#efefef',
-      margin: { vertical: 120 },
+      margin: 0,
       padding: 24,
       shadow: 'xxs',
       border: '1px solid #cfcfcf',
@@ -187,28 +234,38 @@ export const themeDefault: DefaultTheme = {
       function: 'ease'
     },
     primary: {
-      border: '1px solid red',
-      color: '#000000',
-      background: '#efefef',
-      margin: 12,
-      padding: 12,
+      border: '1px solid #d9d9d9',
+      color: '#efefef',
+      background: '#2972fa',
+      margin: 0,
+      padding: { horizontal: 6, vertical: 4 },
       radius: 4,
-      shadow: 'md',
+      shadow: 'xs',
+      css: css`
+        letter-spacing: 1px;
+        font-size: 12px;
+        text-transform: uppercase;
+      `,
       hover: {
-        shadow: 'xl'
+        shadow: 'md'
       }
     },
     default: {
-      border: '1px solid blue',
-      color: '#000000',
-      background: '#fff',
-      margin: 12,
-      padding: 12,
+      border: '1px solid #d9d9d9',
+      color: '#737373',
+      background: '#efefef',
+      margin: 0,
+      padding: { horizontal: 6, vertical: 4 },
       radius: 4,
       shadow: 'md',
       hover: {
-        border: '1px solid red'
-      }
+        border: '1px solid #737373'
+      },
+      css: css`
+        letter-spacing: 1px;
+        font-size: 12px;
+        text-transform: uppercase;
+      `
     }
   },
   breadcrumb: {
@@ -247,18 +304,48 @@ export const themeDefault: DefaultTheme = {
       border: '1px solid #afafaf'
     }
   },
-  selection: {
-    selection: {
+  dropdown: {
+    dropdown: {
+      color: '#000',
       margin: 0,
-      padding: 12,
-      background: 'none',
+      padding: { horizontal: 6, vertical: 4 },
+      background: '#ffffff',
       shadow: 'xs',
       border: '1px solid #cfcfcf',
-      radius: 8
+      radius: 4
     },
     item: {
+      color: '#000000',
       margin: 0,
-      padding: 12,
+      padding: { horizontal: 6, vertical: 4 },
+      background: 'none',
+      shadow: 'none',
+      border: 'none',
+      radius: 0
+    },
+    resultList: {
+      margin: { top: 8 },
+      padding: 0,
+      background: '#fff',
+      shadow: 'md',
+      border: 'none',
+      radius: 0
+    }
+  },
+  selection: {
+    selection: {
+      color: '#000',
+      margin: 0,
+      padding: { horizontal: 6, vertical: 4 },
+      background: '#ffffff',
+      shadow: 'xs',
+      border: '1px solid #cfcfcf',
+      radius: 4
+    },
+    item: {
+      color: '#000000',
+      margin: 0,
+      padding: { horizontal: 6, vertical: 4 },
       background: 'none',
       shadow: 'none',
       border: 'none',

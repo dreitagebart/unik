@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 
-import { Selection, SelectionProps, ItemType, ItemTypeArray } from './Selection'
+import { Selection, SelectionProps } from './Selection'
 import { Unik } from '../Unik'
 
 export default {
@@ -11,28 +11,18 @@ export default {
 
 interface ParentProps {
   children: (
-    state: ItemTypeArray<AdditionalFields>,
-    setState: React.Dispatch<
-      React.SetStateAction<ItemTypeArray<AdditionalFields>>
-    >
+    state: Array<any>,
+    setState: React.Dispatch<React.SetStateAction<Array<any>>>
   ) => any
 }
 
-interface AdditionalFields {
-  description: string
-}
-
-const Template: Story<SelectionProps<ItemType<AdditionalFields>>> = (args) => {
+const Template: Story<SelectionProps<any>> = (args) => {
   const Parent: React.FC<ParentProps> = ({ children, ...props }) => {
-    const [state, setState] = useState<ItemTypeArray<AdditionalFields>>([
-      {
-        key: 'hello',
-        value: 'Hallo',
-        description: 'hsdlfkjsdlkfj'
-      },
-      { key: 'you', value: 'du', description: 'lsdkjglkjdg sdf' },
-      { key: 'are', value: 'bist', description: 'lsdkjglkjdg sdf' },
-      { key: 'bloed', value: 'bloed', description: 'lsdksdfsdf' }
+    const [state, setState] = useState([
+      { key: 'hello', label: 'Hallo' },
+      { key: 'you', label: 'du' },
+      { key: 'are', label: 'bist' },
+      { key: 'bloed', label: 'bloed' }
     ])
 
     return children(state, setState)
@@ -41,9 +31,7 @@ const Template: Story<SelectionProps<ItemType<AdditionalFields>>> = (args) => {
   return (
     <Unik>
       <Parent>
-        {(state, setState) => (
-          <Selection<AdditionalFields> {...args} items={state} />
-        )}
+        {(state, setState) => <Selection {...args} items={state} />}
       </Parent>
     </Unik>
   )
@@ -51,7 +39,7 @@ const Template: Story<SelectionProps<ItemType<AdditionalFields>>> = (args) => {
 
 export const Primary = Template.bind({})
 Primary.args = {
-  width: 420,
+  selectionWidth: 420,
   hideSelected: true,
   multi: true
   // search: true
@@ -59,7 +47,7 @@ Primary.args = {
 
 export const Secondary = Template.bind({})
 Secondary.args = {
-  width: 420,
+  selectionWidth: 420,
   hideSelected: false,
   multi: true,
   renderItem: (item) => (

@@ -1,23 +1,65 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
+
+import { _Wrapper, _List, _Dropdown, _ResultList } from './Styled'
+import { Divider, DividerProps } from './Divider'
+import { Item, ItemProps } from './Item'
+import { Title, TitleProps } from './Title'
+import { Icon } from '../Icon'
+import { WidthProp } from '../../types'
+
+interface SubComponents {
+  Title: React.FC<TitleProps>
+  Item: React.FC<ItemProps>
+  Divider: React.FC<DividerProps>
+}
 
 export interface DropdownProps {
-  label: string
-  background?: string
+  dropdownWidth?: WidthProp
+  listWidth?: WidthProp
+  plain?: boolean
+  isOpen?: boolean
+  onOpen?: () => void
+  onClose?: () => void
+  title: string | React.ReactNode
 }
 
-interface WrapperProps {
-  background: string
-}
-
-const Wrapper = styled.button<Partial<WrapperProps>>`
-  background: ${({ background }) => background};
-`
-
-export const Dropdown: React.FC<DropdownProps> = ({
+export const Dropdown: React.FC<DropdownProps> & SubComponents = ({
+  plain = false,
+  isOpen = false,
   children,
-  label,
-  background
+  title,
+  onClose,
+  onOpen,
+  listWidth = '100%',
+  dropdownWidth = 'auto'
 }) => {
-  return <Wrapper background={background}>{children || label}</Wrapper>
+  const [open, setOpen] = useState(isOpen)
+
+  const handleClick = () => {
+    if (open) {
+      if (onClose) onClose()
+    } else {
+      if (onOpen) onOpen()
+    }
+
+    setOpen(!open)
+  }
+
+  return (
+    <_Wrapper width={dropdownWidth}>
+      <_Dropdown onClick={handleClick} plain={plain}>
+        {title}
+        <Icon name={open ? 'chevron-up' : 'chevron-down'}></Icon>
+      </_Dropdown>
+      <_ResultList>
+        <_List width={listWidth} open={open}>
+          {children}
+        </_List>
+      </_ResultList>
+    </_Wrapper>
+  )
 }
+
+Dropdown.Title = Title
+Dropdown.Divider = Divider
+Dropdown.Item = Item

@@ -1,20 +1,14 @@
 import React, { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
+import { usePortal } from '../../hooks'
+
 export interface PortalProps {
-  node?: HTMLElement
+  id?: string
 }
 
-export const Portal: React.FC<PortalProps> = ({ children, node }) => {
-  const element = document.createElement('div')
+export const Portal: React.FC<PortalProps> = ({ children, id }) => {
+  const target = usePortal(id)
 
-  useEffect(() => {
-    if (!node) document.body.appendChild(element)
-
-    return () => {
-      if (!node) document.body.removeChild(element)
-    }
-  }, [element, node])
-
-  return createPortal(children, node || element)
+  return createPortal(children, target)
 }

@@ -9,6 +9,7 @@ import {
 } from '../../types'
 
 interface Selection {
+  color: ColorProp
   margin: MarginProp
   padding: PaddingProp
   border: BorderProp
@@ -27,6 +28,7 @@ interface ResultList {
 }
 
 interface Item {
+  color: ColorProp
   margin: MarginProp
   padding: PaddingProp
   border: BorderProp

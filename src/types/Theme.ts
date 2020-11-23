@@ -12,10 +12,22 @@ import {
   HeadingTheme,
   BreadcrumbTheme,
   MessageTheme,
-  BaseTheme
+  BaseTheme,
+  DrawerTheme,
+  TreeTheme,
+  DividerTheme,
+  TextAreaTheme,
+  DropdownTheme
 } from '../components'
 import { ShadowProp } from './Props'
-import { DrawerTheme } from '../components/Drawer'
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends Array<infer U>
+    ? Array<DeepPartial<U>>
+    : T[P] extends ReadonlyArray<infer U>
+    ? ReadonlyArray<DeepPartial<U>>
+    : DeepPartial<T[P]>
+}
 
 export interface Breakpoint {
   small: number
@@ -29,10 +41,12 @@ interface ShadowTheme {
 }
 
 export interface UnikTheme {
+  divider: DividerTheme
   breakpoints: Breakpoint
   breadcrumb: BreadcrumbTheme
   button: ButtonTheme
   avatar: AvatarTheme
+  dropdown: DropdownTheme
   drawer: DrawerTheme
   checkbox: CheckboxTheme
   modal: ModalTheme
@@ -46,4 +60,6 @@ export interface UnikTheme {
   shadows: ShadowTheme
   message: MessageTheme
   base: BaseTheme
+  tree: TreeTheme
+  textarea: TextAreaTheme
 }

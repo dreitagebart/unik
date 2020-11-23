@@ -1,6 +1,8 @@
 import React from 'react'
 import 'boxicons'
 
+import { RootComponent } from '../../types'
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -9,7 +11,8 @@ declare global {
   }
 }
 
-export interface IconProps {
+export interface IconProps extends RootComponent {
+  onClick?: () => void
   type?: 'regular' | 'solid' | 'logo'
   name: string
   color?: string
@@ -34,6 +37,9 @@ export interface IconProps {
 }
 
 export const Icon: React.FC<IconProps> = ({
+  id,
+  style,
+  className,
   name,
   type = 'regular',
   animation,
@@ -42,7 +48,8 @@ export const Icon: React.FC<IconProps> = ({
   pull,
   rotate,
   size,
-  color
+  color,
+  onClick
 }) => {
   let iconSize = size
 
@@ -52,6 +59,10 @@ export const Icon: React.FC<IconProps> = ({
 
   return (
     <box-icon
+      id={id}
+      style={style}
+      className={className}
+      onClick={onClick}
       size={iconSize}
       color={color}
       flip={flip}
