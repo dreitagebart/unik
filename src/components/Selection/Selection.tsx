@@ -56,7 +56,7 @@ export const Selection = <SelectionItem,>({
   multi = false,
   placeholder = 'Select your item',
   listWidth = '100%',
-  selectionWidth = '100%',
+  selectionWidth = 'auto',
   onOpen,
   onClose,
   onSelect,

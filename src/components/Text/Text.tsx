@@ -1,10 +1,14 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
 
-import { FontSizeProp, ColorProp, FontFamilyProp } from '../../types'
-import { renderValue, renderColor, renderFontFamily } from '../../utils'
+import {
+  FontSizeProp,
+  ColorProp,
+  FontFamilyProp,
+  RootComponent
+} from '../../types'
+import { _Text } from './Styled'
 
-export interface TextProps {
+export interface TextProps extends RootComponent {
   uppercase?: boolean
   font?: FontFamilyProp
   light?: boolean
@@ -14,45 +18,10 @@ export interface TextProps {
   children: any
 }
 
-interface _TextProps {
-  uppercase: boolean
-  font: FontFamilyProp
-  color: ColorProp
-  bold: boolean
-  light: boolean
-  size: FontSizeProp
-}
-
-const _Text = styled.span<_TextProps>`
-  ${({ color }) => renderColor(color)}
-  ${({ font }) => renderFontFamily(font)}
-
-  ${({ bold }) =>
-    bold &&
-    css`
-      font-weight: bold;
-    `}
-
-  ${({ light }) =>
-    light &&
-    css`
-      font-weight: lighter;
-    `}
-
-  ${({ size }) =>
-    size &&
-    css`
-      font-size: ${renderValue(size)};
-    `}
-
-  ${({ uppercase }) =>
-    uppercase &&
-    css`
-      text-transform: uppercase;
-    `}
-`
-
 export const Text: React.FC<TextProps> = ({
+  id,
+  style,
+  className,
   children,
   uppercase = false,
   bold = false,
@@ -63,6 +32,9 @@ export const Text: React.FC<TextProps> = ({
 }) => {
   return (
     <_Text
+      id={id}
+      style={style}
+      className={className}
       bold={bold}
       light={light}
       size={size}
