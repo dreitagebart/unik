@@ -25,6 +25,32 @@ export const themeDefault: DefaultTheme = {
     focus: '0 0 3px 1px rgba(81, 124, 219, 0.8)',
     hover: '0 0 3px 1px rgba(81, 124, 219, 0.4)'
   },
+  alert: {
+    margin: undefined,
+    padding: 12,
+    radius: 4,
+    shadow: 'xs',
+    success: {
+      background: '#fcfff5',
+      color: '#2c662d',
+      border: '1px solid #2c662d'
+    },
+    info: {
+      background: '#f8ffff',
+      color: '#0e566c',
+      border: '1px solid #0e566c'
+    },
+    warning: {
+      background: '#fffaf3',
+      color: '#573a08',
+      border: '1px solid #573a08'
+    },
+    error: {
+      background: '#fff6f6',
+      color: '#9f3a38',
+      border: '1px solid #9f3a38'
+    }
+  },
   breakpoints: {
     small: 544,
     medium: 768,

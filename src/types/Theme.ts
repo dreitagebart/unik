@@ -17,7 +17,8 @@ import {
   TreeTheme,
   DividerTheme,
   TextAreaTheme,
-  DropdownTheme
+  DropdownTheme,
+  AlertTheme
 } from '../components'
 import { ShadowProp } from './Props'
 
@@ -46,6 +47,7 @@ export interface UnikTheme {
   breadcrumb: BreadcrumbTheme
   button: ButtonTheme
   avatar: AvatarTheme
+  alert: AlertTheme
   dropdown: DropdownTheme
   drawer: DrawerTheme
   checkbox: CheckboxTheme
