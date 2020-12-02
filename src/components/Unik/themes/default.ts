@@ -57,6 +57,17 @@ export const themeDefault: DefaultTheme = {
     large: 1012,
     extraLarge: 1280
   },
+  pill: {
+    background: '#efefef',
+    border: { size: 1, style: 'solid', color: '#666' },
+    color: undefined,
+    radius: 4,
+    margin: { horizontal: 4 },
+    padding: { horizontal: 4 },
+    css: `
+      text-transform: uppercase;
+    `
+  },
   divider: {
     color: undefined,
     background: undefined

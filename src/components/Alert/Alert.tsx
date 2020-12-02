@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 
-import { RootComponent } from '../../types'
+import { RootComponent, ErrorType } from '../../types'
 import { Space } from '../Space'
-import { ErrorType, _Alert } from './Styled'
+import { _Alert } from './Styled'
 
 export interface AlertProps extends RootComponent {
   type?: ErrorType

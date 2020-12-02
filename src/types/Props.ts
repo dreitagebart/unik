@@ -1,5 +1,7 @@
 export type Value = string | number
 
+export type ErrorType = 'error' | 'success' | 'warning' | 'info'
+
 type Transition = {
   property?: string
   duration?: number

@@ -18,7 +18,8 @@ import {
   DividerTheme,
   TextAreaTheme,
   DropdownTheme,
-  AlertTheme
+  AlertTheme,
+  PillTheme
 } from '../components'
 import { ShadowProp } from './Props'
 
@@ -64,4 +65,5 @@ export interface UnikTheme {
   base: BaseTheme
   tree: TreeTheme
   textarea: TextAreaTheme
+  pill: PillTheme
 }

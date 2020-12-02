@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 
+import { ErrorType } from '../../types'
 import {
   renderBackground,
   renderBorder,
@@ -11,8 +12,6 @@ import {
   renderShadow
 } from '../../utils'
 import { AlertTheme } from './theme'
-
-export type ErrorType = 'error' | 'success' | 'warning' | 'info'
 
 interface _AlertProps {
   type: ErrorType

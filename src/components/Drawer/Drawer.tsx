@@ -16,6 +16,7 @@ import {
   renderRadius
 } from '../../utils'
 import { Icon } from '../Icon'
+import { Portal } from '../Portal'
 
 type Position = 'left' | 'bottom' | 'right' | 'top'
 
@@ -174,7 +175,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   }, [open])
 
   return (
-    <Fragment>
+    <Portal>
       <_Backdrop
         visible={open}
         onClick={() => {
@@ -193,6 +194,6 @@ export const Drawer: React.FC<DrawerProps> = ({
         </_Bar>
         {children}
       </_Drawer>
-    </Fragment>
+    </Portal>
   )
 }

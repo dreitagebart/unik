@@ -1,7 +1,11 @@
 import React from 'react'
 
-export interface PillProps {}
+import { _Pill } from './Styled'
 
-export const Pill: React.FC<PillProps> = () => {
-  return <div>TOOLTIP</div>
+export interface PillProps {
+  onClick?: () => void
+}
+
+export const Pill: React.FC<PillProps> = ({ children, onClick }) => {
+  return <_Pill onClick={onClick}>{children}</_Pill>
 }
