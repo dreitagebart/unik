@@ -1,6 +1,31 @@
-import { ColorProp, BackgroundProp } from '../../types'
+import {
+  BackgroundProp,
+  MarginProp,
+  PaddingProp,
+  BorderProp,
+  RadiusProp,
+  ColorProp,
+  ShadowProp
+} from '../../types'
+
+interface Theme {
+  background: BackgroundProp
+  border: BorderProp
+  color: ColorProp
+}
 
 export interface ToastTheme {
-  color: ColorProp
-  background: BackgroundProp
+  toast: {
+    shadow: ShadowProp
+    margin: MarginProp
+    padding: PaddingProp
+    radius: RadiusProp
+    error: Theme
+    success: Theme
+    warning: Theme
+    info: Theme
+  }
+  container: {
+    padding: PaddingProp
+  }
 }

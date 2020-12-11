@@ -1,15 +1,16 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import merge from 'lodash.merge'
 import { createGlobalStyle, ThemeProvider, css } from 'styled-components'
 import { normalize } from 'polished'
 
-import { UnikTheme } from '../../types'
+import { DeepPartial, UnikTheme } from '../../types'
 import { themeDefault } from './themes/default'
 import { renderFontFamily, renderFontSize } from '../../utils'
 
 interface Props {
   header?: any
-  theme?: UnikTheme
+  theme?: DeepPartial<UnikTheme>
 }
 
 const _Global = createGlobalStyle`
@@ -30,13 +31,9 @@ const _Global = createGlobalStyle`
   }
 `
 
-export const Unik: React.FC<Props> = ({
-  children,
-  theme = themeDefault,
-  header
-}) => {
+export const Unik: React.FC<Props> = ({ children, theme, header }) => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={merge(themeDefault, theme)}>
       <_Global></_Global>
       <Helmet>{header}</Helmet>
       {children}

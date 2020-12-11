@@ -1,3 +1,4 @@
+import { position } from 'polished'
 import { css, useTheme } from 'styled-components'
 
 import {
@@ -23,7 +24,9 @@ import {
   ColorProp,
   TransitionProp,
   FontFamilyProp,
-  FontSizeProp
+  FontSizeProp,
+  PositionProp,
+  ZIndexProp
 } from './types'
 
 const FlexMap: { [key: string]: string } = {
@@ -40,6 +43,8 @@ const FlexMap: { [key: string]: string } = {
 }
 
 export const renderWrap = (wrap: WrapProp) => {
+  if (typeof wrap === 'undefined') return
+
   if (wrap)
     return css`
       flex-wrap: wrap;
@@ -51,6 +56,8 @@ export const renderWrap = (wrap: WrapProp) => {
 }
 
 export const renderOverflow = (overflow: OverflowProp) => {
+  if (typeof overflow === 'undefined') return
+
   if (typeof overflow === 'string') {
     return css`
       overflow: ${overflow};
@@ -151,44 +158,58 @@ export const renderRadius = (radius: RadiusProp) => {
 }
 
 export const renderGrow = (grow: GrowProp) => {
+  if (typeof grow === 'undefined') return
+
   return css`
     flex-grow: ${grow};
   `
 }
 
 export const renderShrink = (shrink: ShrinkProp) => {
+  if (typeof shrink === 'undefined') return
+
   return css`
     flex-shrink: ${shrink};
   `
 }
 
 export const renderBasis = (basis: BasisProp) => {
+  if (typeof basis === 'undefined') return
+
   return css`
     flex-basis: ${renderValue(basis)};
   `
 }
 
 export const renderAlign = (align: AlignProp) => {
+  if (typeof align === 'undefined') return
+
   return css`
     align-items: ${FlexMap[align]};
   `
 }
 
 export const renderAlignContent = (alignContent: AlignContentProp) => {
+  if (typeof alignContent === 'undefined') return
+
   return css`
     align-content: ${FlexMap[alignContent]};
   `
 }
 
 export const renderJustify = (justify: JustifyProp) => {
+  if (typeof justify === 'undefined') return
+
   return css`
     justify-content: ${FlexMap[justify]};
   `
 }
 
 export const renderSelf = (self: SelfProp) => {
+  if (typeof self === undefined) return
+
   return css`
-    align-self: ${FlexMap[self]};
+    align-self: ${FlexMap[self as any]};
   `
 }
 
@@ -201,6 +222,8 @@ export const renderValue = (value: Value): string => {
 }
 
 export const renderDirection = (direction: DirectionProp) => {
+  if (typeof direction === 'undefined') return
+
   return css`
     flex-direction: ${direction};
   `
@@ -399,6 +422,35 @@ const renderSubBorder = (prop: string, border: BorderProp) => {
       }
     })
   }
+}
+
+export const renderOrientation = (
+  size: Value | undefined,
+  orientation: 'left' | 'bottom' | 'right' | 'top'
+) => {
+  if (typeof size === 'undefined') return
+
+  const o = `${orientation}: ${renderValue(size)};`
+
+  return css`
+    ${o}
+  `
+}
+
+export const renderZIndex = (zIndex: ZIndexProp) => {
+  if (typeof zIndex === 'undefined') return
+
+  return css`
+    z-index: ${zIndex};
+  `
+}
+
+export const renderPosition = (position: PositionProp) => {
+  if (typeof position === 'undefined') return
+
+  return css`
+    position: ${position};
+  `
 }
 
 export const renderBorder = (border: BorderProp) => {
@@ -644,6 +696,11 @@ export const renderWidth = (width: WidthProp) => {
             max-width: ${renderValue(value)};
           `
         }
+        case 'width': {
+          return css`
+            width: ${renderValue(value)};
+          `
+        }
         default: {
           return css``
         }
@@ -676,6 +733,11 @@ export const renderHeight = (height: HeightProp) => {
         case 'max': {
           return css`
             max-height: ${renderValue(value)};
+          `
+        }
+        case 'height': {
+          return css`
+            height: ${renderValue(value)};
           `
         }
         default: {

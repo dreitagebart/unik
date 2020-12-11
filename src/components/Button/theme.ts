@@ -18,7 +18,7 @@ export interface ButtonStyle {
   padding: PaddingProp
   shadow: ShadowProp
   radius: RadiusProp
-  css?: FlattenSimpleInterpolation
+  css?: string
 }
 
 interface HoverButton extends ButtonStyle {

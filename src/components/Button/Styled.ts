@@ -9,7 +9,8 @@ import {
   renderBorder,
   renderShadow,
   renderRadius,
-  renderTransition
+  renderTransition,
+  renderCSS
 } from '../../utils'
 
 interface _ButtonProps {
@@ -25,9 +26,7 @@ export const _Button = styled.button<_ButtonProps>`
 
   ${({ theme }) => renderTransition(theme.button.transition)}
   ${({ primary, theme }) =>
-    renderButton(
-      primary ? theme.button.primary : theme.button.default
-    )}
+    renderButton(primary ? theme.button.primary : theme.button.default)}
 
   &:hover {
     ${({ primary, theme }) =>
@@ -46,6 +45,6 @@ const renderButton = (theme: Partial<ButtonStyle>) => {
     ${renderColor(theme.color)}
     ${renderRadius(theme.radius)}
     ${renderShadow(theme.shadow)}
-    ${theme.css}
+    ${renderCSS(theme.css)}
   `
 }

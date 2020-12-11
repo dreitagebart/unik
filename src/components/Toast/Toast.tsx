@@ -1,52 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
+import { CSSTransition } from 'react-transition-group'
 
-import { useToast } from './hook'
 import { _Toast } from './Styled'
 import { Toast } from './Class'
+import { ToastContext } from './Context'
+import { Position } from './Provider'
 
 export interface ToastProps {
   toast: Toast
 }
 
 export const ToastComponent: React.FC<ToastProps> = ({ toast }) => {
-  const [active, setActive] = useState(false)
-  const [remove, setRemove] = useState(false)
-  const { removeToast } = useToast()
-
-  useEffect(() => {
-    if (toast.isManual()) return
-
-    setActive(true)
-    toast.remove
-  }, [])
-
-  useEffect(() => {
-    if (!toast.active) {
-      const timer = setTimeout(() => {
-        setRemove(true)
-      }, toast.timeout)
-
-      return () => {
-        clearTimeout(timer)
-      }
-    }
-  }, [toast.active, setRemove])
-
-  useEffect(() => {
-    if (remove) {
-      const timer = setTimeout(() => {
-        removeToast(toast.id)
-      }, 500)
-
-      return () => {
-        clearTimeout(timer)
-      }
-    }
-  }, [remove, toast.id, removeToast])
+  const { removeToast, position } = useContext(ToastContext)
 
   return (
-    <_Toast active={active} type={toast.type}>
-      {toast.message}
-    </_Toast>
+    <CSSTransition
+      classNames="fade"
+      timeout={{ appear: 1000, enter: toast.timeout, exit: 500 }}
+      onEnter={() => console.log('enter')}
+      onExit={() => console.log('exit')}
+      in={toast.active}
+      onEntering={() => console.log('entering')}
+      onEntered={() => removeToast(toast.id)}
+      onExiting={() => console.log('exiting')}
+      onExited={() => {
+        console.log('exited')
+      }}
+      mountOnEnter
+      unmountOnExit
+    >
+      <_Toast width={toast.width} type={toast.type} position={position}>
+        {toast.message}
+      </_Toast>
+    </CSSTransition>
   )
 }

@@ -3,7 +3,7 @@ import { css, DefaultTheme } from 'styled-components'
 export const themeDefault: DefaultTheme = {
   base: {
     fontFamily: [
-      'Roboto',
+      'Calibri',
       'Segoe UI',
       'Tahoma',
       'Geneva',
@@ -24,6 +24,37 @@ export const themeDefault: DefaultTheme = {
     xxl: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
     focus: '0 0 3px 1px rgba(81, 124, 219, 0.8)',
     hover: '0 0 3px 1px rgba(81, 124, 219, 0.4)'
+  },
+  toast: {
+    toast: {
+      shadow: 'md',
+      margin: 16,
+      padding: 16,
+      radius: 4,
+      success: {
+        background: '#fcfff5',
+        color: '#2c662d',
+        border: '1px solid #2c662d'
+      },
+      info: {
+        background: '#f8ffff',
+        color: '#0e566c',
+        border: '1px solid #0e566c'
+      },
+      warning: {
+        background: '#fffaf3',
+        color: '#573a08',
+        border: '1px solid #573a08'
+      },
+      error: {
+        background: '#fff6f6',
+        color: '#9f3a38',
+        border: '1px solid #9f3a38'
+      }
+    },
+    container: {
+      padding: undefined
+    }
   },
   alert: {
     margin: undefined,
@@ -57,13 +88,36 @@ export const themeDefault: DefaultTheme = {
     large: 1012,
     extraLarge: 1280
   },
-  pill: {
-    background: '#efefef',
-    border: { size: 1, style: 'solid', color: '#666' },
-    color: undefined,
+  badge: {
+    success: {
+      background: '#fcfff5',
+      color: '#2c662d',
+      border: '1px solid #2c662d'
+    },
+    info: {
+      background: '#f8ffff',
+      color: '#0e566c',
+      border: '1px solid #0e566c'
+    },
+    warning: {
+      background: '#fffaf3',
+      color: '#573a08',
+      border: '1px solid #573a08'
+    },
+    error: {
+      background: '#fff6f6',
+      color: '#9f3a38',
+      border: '1px solid #9f3a38'
+    },
+    default: {
+      background: '#dfdfdf',
+      color: '#999',
+      border: undefined
+    },
+    shadow: 'sm',
     radius: 4,
-    margin: { horizontal: 4 },
-    padding: { horizontal: 4 },
+    margin: { horizontal: 6 },
+    padding: { horizontal: 6, vertical: 2 },
     css: `
       text-transform: uppercase;
     `
@@ -148,6 +202,10 @@ export const themeDefault: DefaultTheme = {
     focus: {
       shadow: 'focus'
     }
+  },
+  skeleton: {
+    primaryColor: '#efefef',
+    secondaryColor: '#dfdfdf'
   },
   drawer: {
     drawer: {
@@ -278,7 +336,7 @@ export const themeDefault: DefaultTheme = {
       padding: { horizontal: 6, vertical: 4 },
       radius: 4,
       shadow: 'xs',
-      css: css`
+      css: `
         letter-spacing: 1px;
         font-size: 12px;
         text-transform: uppercase;
@@ -298,7 +356,7 @@ export const themeDefault: DefaultTheme = {
       hover: {
         border: '1px solid #737373'
       },
-      css: css`
+      css: `
         letter-spacing: 1px;
         font-size: 12px;
         text-transform: uppercase;

@@ -4,15 +4,25 @@ import {
   RadiusProp,
   BorderProp,
   MarginProp,
-  PaddingProp
+  PaddingProp,
+  ShadowProp
 } from '../../types'
 
-export interface PillTheme {
-  radius: RadiusProp
+interface Theme {
   border: BorderProp
   color: ColorProp
   background: BackgroundProp
+}
+
+export interface BadgeTheme {
+  error: Theme
+  success: Theme
+  warning: Theme
+  info: Theme
+  default: Theme
+  radius: RadiusProp
   margin: MarginProp
   padding: PaddingProp
+  shadow: ShadowProp
   css?: string
 }

@@ -3,16 +3,25 @@ import { ToastContainer } from './Container'
 
 import { Provider } from './Context'
 import { Toast } from './Class'
-import { AddToastMessage, CreateToastMessage } from './types'
+import { AddToastMessage } from './types'
+import { PaddingProp } from '../../types'
+import { MarginProp } from '@dreitagebart/box/dist/types'
 
-interface Props {}
+export type Position = 'topRight' | 'topLeft' | 'bottomRight' | 'bottomLeft'
 
-export const ToastProvider: React.FC<Props> = ({ children }) => {
+interface Props {
+  position?: Position
+}
+
+export const ToastProvider: React.FC<Props> = ({
+  children,
+  position = 'topRight'
+}) => {
   const [toasts, setToasts] = useState<Array<Toast>>([])
   const addToast = useCallback(
     (toast: AddToastMessage) => {
       const newToast = Toast.addToast(toast)
-      debugger
+
       setToasts((toasts) => [...toasts, newToast])
     },
     [setToasts]
@@ -20,25 +29,22 @@ export const ToastProvider: React.FC<Props> = ({ children }) => {
 
   const removeToast = useCallback(
     (id) => {
-      setToasts((toasts) => toasts.filter((t) => t.id !== id))
+      setToasts(
+        toasts.map((t) => {
+          if (t.id === id) {
+            t.remove()
+          }
+
+          return t
+        })
+      )
     },
-    [setToasts]
-  )
-
-  const createToast = useCallback(
-    (toast: CreateToastMessage) => {
-      const newToast = Toast.createToast(toast)
-
-      setToasts((toasts) => [...toasts, newToast])
-
-      return newToast
-    },
-    [setToasts]
+    [setToasts, toasts]
   )
 
   return (
-    <Provider value={{ addToast, removeToast, createToast }}>
-      <ToastContainer toasts={toasts}></ToastContainer>
+    <Provider value={{ addToast, removeToast, position }}>
+      <ToastContainer toasts={toasts} position={position}></ToastContainer>
       {children}
     </Provider>
   )

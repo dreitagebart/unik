@@ -19,7 +19,9 @@ import {
   TextAreaTheme,
   DropdownTheme,
   AlertTheme,
-  PillTheme
+  BadgeTheme,
+  ToastTheme,
+  SkeletonTheme
 } from '../components'
 import { ShadowProp } from './Props'
 
@@ -43,6 +45,7 @@ interface ShadowTheme {
 }
 
 export interface UnikTheme {
+  toast: ToastTheme
   divider: DividerTheme
   breakpoints: Breakpoint
   breadcrumb: BreadcrumbTheme
@@ -65,5 +68,6 @@ export interface UnikTheme {
   base: BaseTheme
   tree: TreeTheme
   textarea: TextAreaTheme
-  pill: PillTheme
+  badge: BadgeTheme
+  skeleton: SkeletonTheme
 }

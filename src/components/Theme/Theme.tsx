@@ -1,11 +1,6 @@
 import React from 'react'
-import {
-  DefaultTheme,
-  ThemeProvider,
-  useTheme,
-  ThemeContext
-} from 'styled-components'
 import merge from 'lodash.merge'
+import { DefaultTheme, ThemeContext } from 'styled-components'
 
 import { DeepPartial } from '../../types'
 

@@ -1,16 +1,16 @@
 import { createContext } from 'react'
+import { Position } from './Provider'
 
-import { AddToastMessage, CreateToastMessage } from './types'
-import { Toast } from './Class'
+import { AddToastMessage } from './types'
 
 interface Context {
-  createToast: (toast: CreateToastMessage) => Toast
+  position: Position
   addToast: (toast: AddToastMessage) => void
   removeToast: (id: string) => void
 }
 
 export const ToastContext = createContext<Context>({
-  createToast: () => Toast.createToast({ message: 'Hallo Welt' }),
+  position: 'bottomLeft',
   addToast: () => null,
   removeToast: () => null
 })
