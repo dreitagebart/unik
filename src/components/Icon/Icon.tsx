@@ -12,7 +12,9 @@ declare global {
 }
 
 export interface IconProps extends RootComponent {
-  onClick?: () => void
+  click?: boolean
+  onMouseDown?: (event: React.MouseEvent<HTMLElement>) => void
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void
   type?: 'regular' | 'solid' | 'logo'
   name: string
   color?: string
@@ -37,6 +39,7 @@ export interface IconProps extends RootComponent {
 }
 
 export const Icon: React.FC<IconProps> = ({
+  click = false,
   id,
   style,
   className,
@@ -49,6 +52,7 @@ export const Icon: React.FC<IconProps> = ({
   rotate,
   size,
   color,
+  onMouseDown,
   onClick
 }) => {
   let iconSize = size
@@ -60,8 +64,9 @@ export const Icon: React.FC<IconProps> = ({
   return (
     <box-icon
       id={id}
-      style={style}
+      style={{ ...style, cursor: click ? 'pointer' : undefined }}
       className={className}
+      onMouseDown={onMouseDown}
       onClick={onClick}
       size={iconSize}
       color={color}

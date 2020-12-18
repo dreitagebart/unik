@@ -38,27 +38,27 @@ export const _TextInput = styled.input<_TextInputProps>`
           background: transparent;
         `
       : css`
+          ${renderMargin(theme.textinput.margin)}
+          ${renderPadding(theme.textinput.padding)}
           ${renderBorder(theme.textinput.border)}
           ${renderBackground(theme.textinput.background)}
-      ${renderRadius(theme.textinput.radius)}
-      ${renderShadow(theme.textinput.shadow)}
+          ${renderRadius(theme.textinput.radius)}
+          ${renderShadow(theme.textinput.shadow)}
         `}
     ${renderColor(theme.textinput.color)}
     ${renderTransition(theme.textinput.transition)}
-    ${renderMargin(theme.textinput.margin)}
-    ${renderPadding(theme.textinput.padding)}
     ${renderCSS(theme.textinput.css)}
 
     &:hover {
       ${!plain &&
       css`
+        ${renderMargin(theme.textinput.hover.margin)}
+        ${renderPadding(theme.textinput.hover.padding)}
         ${renderBorder(theme.textinput.hover.border)}
         ${renderBackground(theme.textinput.hover.background)}
         ${renderShadow(theme.textinput.hover.shadow)}
         ${renderRadius(theme.textinput.hover.radius)}
       `}
-      ${renderMargin(theme.textinput.hover.margin)}
-      ${renderPadding(theme.textinput.hover.padding)}
       ${renderColor(theme.textinput.hover.color)}
       ${renderCSS(theme.textinput.hover.css)}
     }
@@ -70,9 +70,9 @@ export const _TextInput = styled.input<_TextInputProps>`
         ${renderBorder(theme.textinput.focus.border)}
         ${renderRadius(theme.textinput.focus.radius)}
         ${renderShadow(theme.textinput.focus.shadow)}
+        ${renderMargin(theme.textinput.focus.margin)}
+        ${renderPadding(theme.textinput.focus.padding)}
       `}
-      ${renderMargin(theme.textinput.focus.margin)}
-      ${renderPadding(theme.textinput.focus.padding)}
       ${renderColor(theme.textinput.focus.color)}
       ${renderCSS(theme.textinput.focus.css)}
     }

@@ -11,6 +11,7 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "type-check": "tsc --noEmit",
+    "predev": "tsc",
     "dev": "rollup --config ./build.js --watch",
     "prebuild": "yarn clean",
     "build": "tsc && rollup --config ./build.js",
