@@ -17,7 +17,12 @@ interface _BadgeProps {
   type: ErrorType | 'default'
 }
 
-export const _Badge = styled.div<_BadgeProps>`
+export const _Badge = styled.span<_BadgeProps>`
+  word-break: keep-all;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   ${({ theme, circle }) => css`
     ${renderMargin(theme.badge.margin)}
     ${renderPadding(theme.badge.padding)}

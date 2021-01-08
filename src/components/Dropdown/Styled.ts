@@ -1,115 +1,117 @@
 import styled, { css } from 'styled-components'
 
-import { WidthProp } from '../../types'
-import {
-  renderColor,
-  renderBorder,
-  renderShadow,
-  renderBackground,
-  renderMargin,
-  renderPadding,
-  renderRadius,
-  renderWidth
-} from '../../utils'
-
-interface _DropdownProps {
-  plain: boolean
+interface Bounds {
+  top: number
+  left: number
 }
 
-interface _ListProps {
+interface _ItemProps {
+  active: boolean
+}
+
+interface _ResultProps {
   open: boolean
-  width: WidthProp
+  bounds: Bounds
 }
 
 interface _WrapperProps {
-  width: WidthProp
+  inline: boolean
 }
 
-const renderVisibility = (open: boolean) => {
-  if (open)
-    return css`
-      opacity: 1;
-      visibility: visible;
-    `
-
-  return css`
-    opacity: 0;
-    visibility: hidden;
-  `
+interface _IconProps {
+  visible: boolean
 }
+
+export const _Search = styled.input`
+  border: 0;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font: inherit;
+`
+
+export const _Icon = styled.div<_IconProps>`
+  ${({ visible }) =>
+    visible
+      ? css`
+          display: block;
+        `
+      : css`
+          display: none;
+        `}
+`
 
 export const _Wrapper = styled.div<_WrapperProps>`
-  ${({ width }) => renderWidth(width)}
-`
-
-export const _ResultList = styled.div`
   width: 100%;
-  position: relative;
+  ${({ inline }) =>
+    inline
+      ? css`
+          display: inline-block;
+        `
+      : css`
+          display: block;
+        `}
 `
 
-export const _List = styled.div<_ListProps>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  border: 1px solid red;
+export const _Title = styled.div`
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 8px;
+`
 
-  transition: all 0.3s ease-in-out;
-  ${({ open, width }) =>
+export const _Divider = styled.div`
+  border-bottom: 1px solid #cfcfcf;
+`
+
+export const _Item = styled.div<_ItemProps>`
+  cursor: pointer;
+  padding: 8px;
+  ${({ active }) =>
+    active &&
     css`
-      ${renderVisibility(open)}
-      ${renderWidth(width)}
+      background: #efefef;
     `}
-
-  ${({ theme }) => {
-    return css`
-      ${renderBorder(theme.dropdown.resultList.border)}
-      ${renderShadow(theme.dropdown.resultList.shadow)}
-      ${renderBackground(theme.dropdown.resultList.background)}
-      ${renderMargin(theme.dropdown.resultList.margin)}
-      ${renderPadding(theme.dropdown.resultList.padding)}
-      ${renderRadius(theme.dropdown.resultList.radius)}
-    `
-  }}
 `
 
-export const _Dropdown = styled.div<_DropdownProps>`
+export const _Result = styled.div<_ResultProps>`
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid #cfcfcf;
+  position: absolute;
+  background: #ffffff;
+  transition: all 300ms ease-in;
+  transform-origin: left top;
+  transform-style: preserve-3d;
+  ${({ bounds: { top, left } }) => css`
+    top: ${top}px;
+    left: ${left}px;
+  `}
+
+  ${({ open }) =>
+    open
+      ? css`
+          transform: scale(1);
+          opacity: 1;
+          visibility: visible;
+          z-index: 1;
+        `
+      : css`
+          transform: scale(0);
+          opacity: 0;
+          visibility: hidden;
+          z-index: -1;
+        `}
+`
+
+export const _Button = styled.div`
   cursor: pointer;
+  white-space: nowrap;
+  word-break: keep-all;
+`
+
+export const _Inner = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-
-  ${({ theme, plain }) => {
-    return css`
-      ${renderColor(theme.dropdown.dropdown.color)}
-      ${!plain && renderBorder(theme.dropdown.dropdown.border)}
-      ${renderShadow(theme.dropdown.dropdown.shadow)}
-      ${!plain && renderBackground(theme.dropdown.dropdown.background)}
-      ${renderMargin(theme.dropdown.dropdown.margin)}
-      ${renderPadding(theme.dropdown.dropdown.padding)}
-      ${renderRadius(theme.dropdown.dropdown.radius)}
-    `
-  }}
-`
-
-export const _Item = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  cursor: pointer;
-
-  ${({ theme }) => {
-    return css`
-      ${renderColor(theme.dropdown.item.color)}
-      ${renderBorder(theme.dropdown.item.border)}
-      ${renderShadow(theme.dropdown.item.shadow)}
-      ${renderBackground(theme.dropdown.item.background)}
-      ${renderMargin(theme.dropdown.item.margin)}
-      ${renderPadding(theme.dropdown.item.padding)}
-      ${renderRadius(theme.dropdown.item.radius)}
-    `
-  }}
 `

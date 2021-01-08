@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { _Divider } from './Styled'
+
 export interface DividerProps {}
 
-export const Divider: React.FC<DividerProps> = ({ children }) => {
-  return <div>{children}</div>
+export const Divider: React.FC<DividerProps> = () => {
+  return <_Divider></_Divider>
 }

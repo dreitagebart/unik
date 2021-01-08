@@ -10,7 +10,7 @@ export const useIntersection = ({
   root = null,
   rootMargin,
   threshold = 0
-}: Props) => {
+}: Props): Array<any> => {
   const [entry, setEntry] = useState<any>({})
   const [node, setNode] = useState<any>(null)
 

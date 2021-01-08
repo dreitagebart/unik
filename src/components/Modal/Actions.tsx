@@ -2,8 +2,13 @@ import React from 'react'
 
 import { _Actions } from './Styled'
 
-export interface ActionsProps {}
+export interface ActionsProps {
+  align?: 'left' | 'center' | 'right'
+}
 
-export const Actions: React.FC<ActionsProps> = ({ children }) => {
-  return <_Actions>{children}</_Actions>
+export const Actions: React.FC<ActionsProps> = ({
+  children,
+  align = 'right'
+}) => {
+  return <_Actions align={align}>{children}</_Actions>
 }

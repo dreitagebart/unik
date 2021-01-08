@@ -16,6 +16,4 @@ const Template: Story<DropdownProps> = (args) => (
 )
 
 export const Primary = Template.bind({})
-Primary.args = {
-  title: 'Click me'
-}
+Primary.args = {}

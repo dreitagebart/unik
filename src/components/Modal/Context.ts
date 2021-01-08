@@ -1,14 +1,15 @@
 import { createContext } from 'react'
 
 interface ModalContext {
-  onClose?: () => void
+  onClose: () => void
   withoutClose: boolean
   closeIcon: React.ReactNode
 }
 
 export const Context = createContext<ModalContext>({
   withoutClose: false,
-  closeIcon: null
+  closeIcon: null,
+  onClose: () => null
 })
 
 export const { Provider } = Context

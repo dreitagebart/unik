@@ -1,16 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { HeightProp, WidthProp } from '../../types'
-import { useOnClickOutside } from '../../hooks'
-import {
-  _Backdrop,
-  _Modal,
-  _Close,
-  _Content,
-  _Actions,
-  _Dialog,
-  _Wrapper
-} from './Styled'
+import { useOnClickOutside, useWindowResize } from '../../hooks'
+import { _Backdrop, _Modal } from './Styled'
 import { Portal } from '../Portal'
 import { Title, TitleProps } from './Title'
 import { Content, ContentProps } from './Content'
@@ -42,22 +34,47 @@ export const Modal: React.FC<ModalProps> & SubComponents = ({
   withoutClose = false,
   children,
   open,
-  onOpen,
-  onClose,
+  onOpen = () => null,
+  onClose = () => null,
   closeOnBackdrop = false,
   width = '40%',
   height = 'auto'
 }) => {
   const modalRef = useRef<HTMLDivElement>(null)
+  const [modalHeight, setModalHeight] = useState(0)
+  const { height: windowHeight } = useWindowResize()
 
   useEffect(() => {
-    if (open && onOpen) onOpen()
-  }, [open])
+    const rect = modalRef.current?.getBoundingClientRect()
+
+    if (rect) {
+      setModalHeight(rect?.height)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+
+      if (modalHeight > windowHeight) {
+        const newHeight = windowHeight - 80
+
+        if (modalRef.current) {
+          modalRef.current.style.height = `${newHeight}px`
+          modalRef.current.style.overflowY = 'scroll'
+        }
+      }
+
+      onOpen()
+    }
+  }, [open, modalHeight, windowHeight])
 
   useOnClickOutside(
     modalRef,
     () => {
-      if (closeOnBackdrop && onClose) onClose()
+      if (closeOnBackdrop) {
+        onClose()
+      }
     },
     open
   )
@@ -65,19 +82,16 @@ export const Modal: React.FC<ModalProps> & SubComponents = ({
   return (
     <Portal>
       <Provider value={{ closeIcon, withoutClose, onClose }}>
-        <_Backdrop visible={open}>
-          <_Modal
-            plain={plain}
-            ref={modalRef}
-            visible={open}
-            width={width}
-            height={height}
-          >
-            <_Dialog>
-              <_Wrapper>{children}</_Wrapper>
-            </_Dialog>
-          </_Modal>
-        </_Backdrop>
+        <_Backdrop visible={open}></_Backdrop>
+        <_Modal
+          plain={plain}
+          ref={modalRef}
+          visible={open}
+          width={width}
+          height={height}
+        >
+          {children}
+        </_Modal>
       </Provider>
     </Portal>
   )

@@ -4,6 +4,7 @@ import { _Button } from './Styled'
 
 export interface ButtonProps extends RootComponent {
   type?: 'submit' | 'reset' | 'button'
+  plain?: boolean
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
   onMouseDown?: (event: React.MouseEvent<HTMLButtonElement>) => void
   icon?: React.ReactNode
@@ -16,6 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   className,
   icon,
+  plain = false,
   onClick,
   onMouseDown,
   type = 'button',
@@ -24,6 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <_Button
+      plain={plain}
       type={type}
       primary={primary}
       onClick={onClick}

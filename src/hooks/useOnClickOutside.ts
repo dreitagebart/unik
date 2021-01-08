@@ -1,10 +1,10 @@
 import { useEffect, RefObject } from 'react'
 
-export function useOnClickOutside(
+export const useOnClickOutside = (
   ref: RefObject<HTMLElement>,
   handler: (event: React.MouseEvent<HTMLElement>) => void,
   active: boolean
-) {
+) => {
   useEffect(
     () => {
       if (!active) return

@@ -55,7 +55,7 @@ export const _Selection = styled.div<_SelectionProps>`
     return css`
       ${renderColor(theme.selection.selection.color)}
       ${!plain && renderBorder(theme.selection.selection.border)}
-      ${renderShadow(theme.selection.selection.shadow)}
+      ${!plain && renderShadow(theme.selection.selection.shadow)}
       ${!plain && renderBackground(theme.selection.selection.background)}
       ${renderMargin(theme.selection.selection.margin)}
       ${renderPadding(theme.selection.selection.padding)}

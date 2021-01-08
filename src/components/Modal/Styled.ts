@@ -18,6 +18,10 @@ interface _BackdropProps {
   visible: boolean
 }
 
+interface _ActionsProps {
+  align: 'left' | 'center' | 'right'
+}
+
 interface _ModalProps {
   plain: boolean
   visible: boolean
@@ -38,7 +42,6 @@ export const _Backdrop = styled.div<_BackdropProps>`
   z-index: 1000;
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
   position: fixed;
   top: 0;
   left: 0;
@@ -66,65 +69,20 @@ export const _Title = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+  margin-bottom: 12px;
 `
 
 export const _Content = styled.div`
   position: relative;
-  padding: 1rem;
   flex: 1 1 auto;
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
-  /* width: 100%;
-  height: 100%;
-  overflow-y: auto; */
-`
-
-export const _Close = styled.div`
-  /* position: absolute;
-  right: 0;
-  top: 0; */
-  border: 1px solid red;
-  cursor: pointer;
-`
-
-export const _Dialog = styled.div`
-  transform: translate(0, 0);
-  position: relative;
-  width: auto;
-  pointer-events: none;
-
-  /* @media (min-width: 576px) {
-    max-width: 500px;
-    margin: 1.75rem auto;
-  } */
-`
-
-export const _Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: auto;
-  pointer-events: auto;
-  border: 1px solid yellow;
-
-  /* top: 50%; */
-  /* left: 50%; */
-  /* transform: translate(-50%, -50%); */
-  max-width: 100%;
-  max-height: 100%;
 `
 
 export const _Modal = styled.div<_ModalProps>`
   z-index: 1010;
-  position: fixed;
- 
-  overflow-y: auto;
-  overflow-x: hidden;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
   ${({ theme }) => renderTransition(theme.modal.modal.transition)}
   ${({ width }) => renderWidth(width)}
@@ -139,7 +97,7 @@ export const _Modal = styled.div<_ModalProps>`
       ${renderPadding(theme.modal.modal.padding)}
       ${renderColor(theme.modal.modal.color)}
       ${renderRadius(theme.modal.modal.radius)}
-      ${renderShadow(theme.modal.modal.shadow)}  
+      ${renderShadow(theme.modal.modal.shadow)}
     `}
 
   ${({ visible }) =>
@@ -154,4 +112,28 @@ export const _Modal = styled.div<_ModalProps>`
         `}
 `
 
-export const _Actions = styled.div``
+export const _Actions = styled.div<_ActionsProps>`
+  margin-top: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  ${({ align }) => {
+    switch (align) {
+      case 'left': {
+        return css`
+          justify-content: flex-start;
+        `
+      }
+      case 'center': {
+        return css`
+          justify-content: center;
+        `
+      }
+      case 'right': {
+        return css`
+          justify-content: flex-end;
+        `
+      }
+    }
+  }}
+`

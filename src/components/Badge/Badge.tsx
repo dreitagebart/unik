@@ -1,23 +1,45 @@
 import React from 'react'
 
-import { ErrorType } from '../../types'
+import { ErrorType, RootComponent } from '../../types'
+import { Icon } from '../Icon'
 import { _Badge } from './Styled'
 
-export interface BadgeProps {
+export interface BadgeProps extends RootComponent {
+  onClose?: () => void
+  close?: boolean
   circle?: boolean
   type?: ErrorType | 'default'
-  onClick?: () => void
 }
 
 export const Badge: React.FC<BadgeProps> = ({
+  id,
+  style,
+  className,
   children,
-  onClick,
+  close,
+  onClose,
   type = 'default',
   circle = false
 }) => {
   return (
-    <_Badge circle={circle} type={type} onClick={onClick}>
+    <_Badge
+      id={id}
+      style={style}
+      className={className}
+      circle={circle}
+      type={type}
+    >
       {children}
+      <Icon
+        click
+        name="x"
+        onClick={onClose}
+        size={20}
+        style={{
+          marginLeft: 8,
+          display: close ? 'block' : 'none'
+        }}
+      ></Icon>
     </_Badge>
   )
 }

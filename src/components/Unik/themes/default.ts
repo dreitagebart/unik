@@ -117,10 +117,7 @@ export const themeDefault: DefaultTheme = {
     shadow: 'sm',
     radius: 4,
     margin: { horizontal: 6 },
-    padding: { horizontal: 6, vertical: 2 },
-    css: `
-      text-transform: uppercase;
-    `
+    padding: { horizontal: 6, vertical: 2 }
   },
   divider: {
     color: undefined,
@@ -276,7 +273,7 @@ export const themeDefault: DefaultTheme = {
   modal: {
     modal: {
       color: '#000000',
-      background: '#efefef',
+      background: '#fff',
       margin: 0,
       padding: 24,
       shadow: 'xxs',
