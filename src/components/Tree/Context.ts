@@ -1,26 +1,36 @@
 import { createContext } from 'react'
 
 import { Icon } from '../Icon'
+import { DefaultTreeItem, Properties } from './Tree'
 
-interface TreeContext {
+export interface TreeContext<TreeItem = DefaultTreeItem> {
   defaultIcon: React.ReactNode
-  expandProp: string
-  itemsProp: string
-  keyProp: string
-  labelProp: string
-  renderItem?: (item: any) => React.ReactNode
-  onClick?: (item: any) => void
-  onExpand?: (item: any) => void
-  onCollapse?: (item: any) => void
+  properties: Properties<TreeItem>
+  // expandProp: string
+  // itemsProp: string
+  // keyProp: string
+  // labelProp: string
+  // renderItem?: (item: any) => React.ReactNode
+  // renderProps?: (item: any) => any
+  // onClick?: (item: any) => void
+  // onExpand?: (item: any) => void
+  // onCollapse?: (item: any) => void
 }
 
-export const Context = createContext<TreeContext>({
+export const Context = createContext<TreeContext<any>>({
   defaultIcon: Icon,
-  expandProp: '',
-  itemsProp: '',
-  keyProp: '',
-  labelProp: '',
-  renderItem: () => null
+  properties: {
+    render: () => null,
+    key: '',
+    value: '',
+    items: '',
+    expand: ''
+  }
+  // expandProp: '',
+  // itemsProp: '',
+  // keyProp: '',
+  // labelProp: '',
+  // renderItem: () => null
 })
 
 export const { Provider } = Context
